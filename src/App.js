@@ -18,7 +18,7 @@ class App extends Component {
 
   _callApi = () => {
     return fetch(
-      `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${config.YOUTUBE_API_KEY}&videoId=Z9eqBrp_uR0&maxResults=5`
+      `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${config.YOUTUBE_API_KEY}&videoId=Z9eqBrp_uR0&maxResults=1`
     ).then(response => response.json()) // If this line is not written, we cannot get correct data.
       // .then(json => json.data)
       // .catch(err => console.log(err));
@@ -28,7 +28,12 @@ class App extends Component {
     const items = this.state.videos.items.map(item => {
       return (
         <div>
-          {item.id}
+          <div>
+            Date: {item.snippet.topLevelComment.snippet.publishedAt}
+          </div>
+          <div>
+            Comment: {item.snippet.topLevelComment.snippet.textDisplay}
+          </div>
         </div>
       )
     });
