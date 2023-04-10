@@ -3,7 +3,7 @@ import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
 class App extends Component {
   state = {
-    videos: "",
+    videos: [],
   };
 
   componentDidMount() {
@@ -11,26 +11,33 @@ class App extends Component {
   }
 
   _getVideos = async () => { // Why aren't 'const' used?
-    const response = await(
-      await fetch(
-        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${config.YOUTUBE_API_KEY}&videoId=Z9eqBrp_uR0&maxResults=5`
-      )
-    ).json();
+    const videos = await this._callApi();
+    this.setState({
+      videos
+    });
+  };
 
-    console.log(response);
+  _callApi = () => {
+    return fetch(
+      `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${config.YOUTUBE_API_KEY}&videoId=Z9eqBrp_uR0&maxResults=5`
+    )
+      // .then(response => response.json())
+      // .then(json => json.data)
+      // .catch(err => console.log(err));
   };
 
   _renderVideos = () => {
-    //
+    const videos = this.state.videos;
+    console.log(videos);
   };
   
   render() {
-    // const { videos } = this.state;
+    const { videos } = this.state;
 
     return (
       <div>
         <p>Test</p>
-        {/*{videos ? this._renderVideos() : "Loading..."}*/}
+        {videos ? this._renderVideos() : "Loading..."}
       </div>
     )
   }
