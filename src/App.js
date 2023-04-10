@@ -26,8 +26,15 @@ class App extends Component {
   };
 
   _renderVideos = () => {
-    const videos = this.state.videos;
-    console.log(videos);
+    const items = this.state.videos.items;
+    console.log(items); // Success
+    items.map(item => { // Fail
+      return (
+        <div>
+          ${item}
+        </div>
+      )
+    });
   };
   
   render() {
