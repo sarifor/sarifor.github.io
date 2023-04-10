@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
 class App extends Component {
-  state = {
-    videos: [],
+  state = { // Do not write 'videos: [],' inside, or error occurs.
   };
 
   componentDidMount() {
@@ -26,15 +25,14 @@ class App extends Component {
   };
 
   _renderVideos = () => {
-    const items = this.state.videos.items;
-    console.log(items); // Success
-    items.map(item => { // Fail
+    const items = this.state.videos.items.map(item => {
       return (
         <div>
-          ${item}
+          {item.id}
         </div>
       )
     });
+    return items;
   };
   
   render() {
