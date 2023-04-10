@@ -20,8 +20,7 @@ class App extends Component {
   _callApi = () => {
     return fetch(
       `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=${config.YOUTUBE_API_KEY}&videoId=Z9eqBrp_uR0&maxResults=5`
-    )
-      // .then(response => response.json())
+    ).then(response => response.json()) // If this line is not written, we cannot get correct data.
       // .then(json => json.data)
       // .catch(err => console.log(err));
   };
