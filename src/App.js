@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
-import ScrollBox from './ScrollBox.js';
+import Comment from './Comment.js';
 
 class App extends Component {
+  state = {
+    videos: "",
+  };
+
+  componentDidMount() {
+    //
+  }
+
+  _getVideos = () => {
+    //
+  };
+
+  _renderVideos = () => {
+    //
+  }
+  
   render() {
+    const { videos } = this.state;
+
     return (
       <div>
-        <ScrollBox ref={(ref) => this.scrollBox=ref}/>
-        <button onClick={() => this.scrollBox.scrollToBottom()}>
-            Go to Bottom
-        </button>
+          <Comment />
       </div>
     )
   }
