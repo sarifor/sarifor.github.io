@@ -24,15 +24,16 @@ class App extends Component {
 
     // Extract video ids and put them into an array
     const videoIds = latestFiveVideos.items.map(item => item.id.videoId);
-    console.log(videoIds);
 
     // Fetch comments using YouTube api url including video id
-    const comments = videoIds.map( async (videoId) => {
-      comment: await fetch(
+    const videos = videoIds.map( async (videoId) => {
+      const video = await fetch(
         `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=${videoId}&key=${config.YOUTUBE_API_KEY}`
       ).then(response => response.json());
+      console.log(video); // Success
+      return video;
     });
-    console.log(comments);
+    console.log(videos); // Fail: [Promise, Promise, Promise, Promise, Promise]
 
     return await fetch(
       `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=Z9eqBrp_uR0&key=${config.YOUTUBE_API_KEY}`
