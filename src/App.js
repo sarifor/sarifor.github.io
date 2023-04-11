@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
+// import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
 class App extends Component {
   state = { // Do not write 'videos: [],' inside, or error occurs.
@@ -18,7 +18,7 @@ class App extends Component {
 
   _callApi = async () => {
     // Fetch latest infomation of five videos from a YouTube channel
-    const latestFiveVideos = await fetch(`
+    /* const latestFiveVideos = await fetch(`
       https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCkIu9pkxvDcnBs4Tl4seMFw&maxResults=5&order=date&type=video&key=${config.YOUTUBE_API_KEY}`
     ).then(response => response.json());
 
@@ -39,14 +39,41 @@ class App extends Component {
       console.log(json); // Successfully fetched
     }).catch(error => {
       console.log(error);
-    });
+    }); */
 
     // Fetch a video's comment
-    return await fetch(
+    const videos = { // Test data while YouTube api request quota per day is exceeded
+      "items": [
+        {
+          "snippet": {
+            "topLevelComment" : {
+              "snippet": {
+                "publishedAt": "2024/4/1",
+                "textDisplay": "I love parrot!"
+              }
+            }
+          }
+        },
+        {
+          "snippet": {
+            "topLevelComment" : {
+              "snippet": {
+                "publishedAt": "2024/4/2",
+                "textDisplay": "Rumongdaro has made me love parrot!"
+              }
+            }
+          }
+        },          
+      ],
+    };
+    console.log(videos);
+    return videos;
+
+    /* return await fetch(
       `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=Z9eqBrp_uR0&key=${config.YOUTUBE_API_KEY}`
     ).then(response => response.json()); // If this line is not written, we cannot get correct data.
       // .then(json => json.data)
-      // .catch(err => console.log(err));
+      // .catch(err => console.log(err)); */
   };
 
   _renderVideos = () => {
