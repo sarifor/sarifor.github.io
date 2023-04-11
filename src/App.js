@@ -16,16 +16,28 @@ class App extends Component {
     });
   };
 
-  _callApi = () => {
-    return fetch(
+  _callApi = async () => {
+    // Fetch latest infomation of five videos from a YouTube channel
+    const latestFiveVideos = await fetch(`
+      https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCkIu9pkxvDcnBs4Tl4seMFw&maxResults=5&order=date&type=video&key=${config.YOUTUBE_API_KEY}`
+    ).then(response => response.json());
+
+    // Extract video ids and put them into an array
+    const videoIds = latestFiveVideos.items.map(item => item.id.videoId);
+    console.log(videoIds);
+
+    // Fetch comments using YouTube api url including video id
+    // Code
+
+    return await fetch(
       `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=Z9eqBrp_uR0&key=${config.YOUTUBE_API_KEY}`
-    ).then(response => response.json()) // If this line is not written, we cannot get correct data.
+    ).then(response => response.json()); // If this line is not written, we cannot get correct data.
       // .then(json => json.data)
       // .catch(err => console.log(err));
   };
 
   _renderVideos = () => {
-    const items = this.state.videos.items.map(item => {
+    const items = this.state.videos.items.map(item => { // forEach vs. map ?
       return (
         <div>
           <div>
