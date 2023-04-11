@@ -1,19 +1,24 @@
 import React, { Component } from "react";
 
 class Comment extends Component {
-    /* handleMouseOver = () => {
-        console.log("Mouse overed");
-        style.background = "yellow";
-    } */
+    state = {
+        color: this.props.color
+    };
+    
+    handleMouseOver = () => {
+        this.setState({
+            color: "#FDFD96"
+        }) // ';' is needed?
+    }
 
     render() {
         let style = {
-            background: "this.props.color",
+            background: this.state.color
         };
 
         return (
             <>
-                <div style={style} onMouseOver={()=>{style.background="yellow"}}> {/* Cannot assign to read only property 'background' of object '#<Object>' */}
+                <div style={style} onMouseOver={this.handleMouseOver}> {/* Cannot assign to read only property 'background' of object '#<Object>' */}
                     <div>
                         Date: {this.props.date}
                     </div>
