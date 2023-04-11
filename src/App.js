@@ -97,7 +97,7 @@ class App extends Component {
 
     return (
       <div>
-        <p>Test</p>
+        <p>Video Info Collector</p>
         {videos ? this._renderVideos() : "Loading..."}
       </div>
     )
