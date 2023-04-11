@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Comment from './Comment';
 // import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
 class App extends Component {
@@ -77,19 +78,17 @@ class App extends Component {
   };
 
   _renderVideos = () => {
-    const items = this.state.videos.items.map(item => { // forEach vs. map ?
-      return (
-        <div>
-          <div>
-            Date: {item.snippet.topLevelComment.snippet.publishedAt}
-          </div>
-          <div>
-            Comment: {item.snippet.topLevelComment.snippet.textDisplay}
-          </div>
-        </div>
-      )
-    });
-    return items;
+    const items = this.state.videos.items;
+    return (
+      <>
+        {items.map((item) => ( // ForEach vs. map ?
+          <Comment 
+            date={item.snippet.topLevelComment.snippet.publishedAt}
+            comment={item.snippet.topLevelComment.snippet.textDisplay}
+          />      
+        ))}  
+      </>
+    )
   };
   
   render() {
