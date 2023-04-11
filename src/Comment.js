@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
 class Comment extends Component {
+
+    handleMouseOver = () => {
+        console.log("Mouse overed");
+    }
+
     render() {
         const style = {
             background: this.props.color,
@@ -8,7 +13,7 @@ class Comment extends Component {
 
         return (
             <>
-                <div style={style}>
+                <div style={style} onMouseOver={this.handleMouseOver}>
                     <div>
                         Date: {this.props.date}
                     </div>
