@@ -27,7 +27,12 @@ class App extends Component {
     console.log(videoIds);
 
     // Fetch comments using YouTube api url including video id
-    // Code
+    const comments = videoIds.map( async (videoId) => {
+      comment: await fetch(
+        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=${videoId}&key=${config.YOUTUBE_API_KEY}`
+      ).then(response => response.json());
+    });
+    console.log(comments);
 
     return await fetch(
       `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=Z9eqBrp_uR0&key=${config.YOUTUBE_API_KEY}`
