@@ -11,6 +11,12 @@ class Comment extends Component {
         }) // ';' is needed?
     }
 
+    handleMouseLeave = () => {
+        this.setState({
+            color: this.props.color
+        })
+    }
+
     render() {
         let style = {
             background: this.state.color
@@ -18,7 +24,7 @@ class Comment extends Component {
 
         return (
             <>
-                <div style={style} onMouseOver={this.handleMouseOver}> {/* Cannot assign to read only property 'background' of object '#<Object>' */}
+                <div style={style} onMouseOver={this.handleMouseOver} onMouseLeave={this.handleMouseLeave}>
                     <div>
                         Date: {this.props.date}
                     </div>
