@@ -25,16 +25,23 @@ class App extends Component {
     // Extract video ids and put them into an array
     const videoIds = latestFiveVideos.items.map(item => item.id.videoId);
 
-    // Fetch comments using YouTube api url including video id
-    const videos = videoIds.map( async (videoId) => {
-      const video = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=${videoId}&key=${config.YOUTUBE_API_KEY}`
-      ).then(response => response.json());
-      console.log(video); // Success
-      return video;
-    });
-    console.log(videos); // Fail: [Promise, Promise, Promise, Promise, Promise]
+    // Create an array of YouTube comment api url including video ids extracted
+    const urls = videoIds.map((videoId) => 
+      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=${videoId}&key=${config.YOUTUBE_API_KEY}`
+    );
 
+    // Fetch each comment at the same time using YouTube comment api url including video ids extracted
+    Promise.all([fetch(urls[0]), fetch(urls[1]), fetch(urls[2]), fetch(urls[3]), fetch(urls[4])]).then(responses => {
+      return Promise.all(responses.map(response => {
+        return response.json();
+      }));
+    }).then(json => {
+      console.log(json); // Successfully fetched
+    }).catch(error => {
+      console.log(error);
+    });
+
+    // Fetch a video's comment
     return await fetch(
       `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=Z9eqBrp_uR0&key=${config.YOUTUBE_API_KEY}`
     ).then(response => response.json()); // If this line is not written, we cannot get correct data.
