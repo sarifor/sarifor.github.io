@@ -82,7 +82,8 @@ class App extends Component {
     return (
       <>
         {items.map((item) => ( // ForEach vs. map ?
-          <Comment 
+          <Comment
+            color="#d3d3d3" 
             date={item.snippet.topLevelComment.snippet.publishedAt}
             comment={item.snippet.topLevelComment.snippet.textDisplay}
           />      
