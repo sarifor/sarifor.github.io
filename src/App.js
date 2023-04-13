@@ -25,8 +25,8 @@ class App extends Component {
       .catch(error => {
         console.log(error);
 
-        // return test object
-        // code
+        // Return test object
+        // Code
       });
     
     // Extract video ids and put them into an array
@@ -56,8 +56,8 @@ class App extends Component {
               "snippet": {
                 "topLevelComment": {
                   "snippet": {
-                    "publishedAt": "xx",
-                    "textDisplay": "xx"
+                    "publishedAt": "2024/4/1",
+                    "textDisplay": "Visit Australia"
                   }
                 }
               }
@@ -70,8 +70,8 @@ class App extends Component {
               "snippet": {
                 "topLevelComment": {
                   "snippet": {
-                    "publishedAt": "xx",
-                    "textDisplay": "xx"
+                    "publishedAt": "2024/4/2",
+                    "textDisplay": "Wanna meet cockatoos!"
                   }
                 }
               }
