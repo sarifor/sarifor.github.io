@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Comment from './Comment';
-// import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
+import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
 class App extends Component {
   state = { // Do not write 'videos: [],' inside, or error occurs.
@@ -19,10 +19,16 @@ class App extends Component {
 
   _callApi = async () => {
     // Fetch latest infomation of five videos from a YouTube channel
-    /* const latestFiveVideos = await fetch(`
+    const latestFiveVideos = await fetch(`
       https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCkIu9pkxvDcnBs4Tl4seMFw&maxResults=5&order=date&type=video&key=${config.YOUTUBE_API_KEY}`
-    ).then(response => response.json());
+    ).then(response => response.json())
+      .catch(error => {
+        console.log(error);
 
+        // return test object
+        // code
+      });
+    
     // Extract video ids and put them into an array
     const videoIds = latestFiveVideos.items.map(item => item.id.videoId);
 
@@ -32,53 +38,58 @@ class App extends Component {
     );
 
     // Fetch each comment at the same time using YouTube comment api url including video ids extracted
-    Promise.all([fetch(urls[0]), fetch(urls[1]), fetch(urls[2]), fetch(urls[3]), fetch(urls[4])]).then(responses => {
+    const videos = await Promise.all([fetch(urls[0]), fetch(urls[1]), fetch(urls[2]), fetch(urls[3]), fetch(urls[4])]).then(responses => {
       return Promise.all(responses.map(response => {
         return response.json();
       }));
     }).then(json => {
-      console.log(json); // Successfully fetched
+      const videos = json;
+      return videos;
     }).catch(error => {
       console.log(error);
-    }); */
 
-    // Fetch a video's comment
-    const videos = { // Test data while YouTube api request quota per day is exceeded
-      "items": [
-        {
-          "snippet": {
-            "topLevelComment" : {
+      // Return test object if api returns error or exceeds quota per day
+      const videos = { // Type is JSON?
+        "0": {
+          "items": [
+            {
               "snippet": {
-                "publishedAt": "2024/4/1",
-                "textDisplay": "I love parrot!"
+                "topLevelComment": {
+                  "snippet": {
+                    "publishedAt": "xx",
+                    "textDisplay": "xx"
+                  }
+                }
               }
             }
-          }
+          ]
         },
-        {
-          "snippet": {
-            "topLevelComment" : {
+        "1": {
+          "items": [
+            {
               "snippet": {
-                "publishedAt": "2024/4/2",
-                "textDisplay": "Rumongdaro has made me love parrot!"
+                "topLevelComment": {
+                  "snippet": {
+                    "publishedAt": "xx",
+                    "textDisplay": "xx"
+                  }
+                }
               }
             }
-          }
-        },          
-      ],
-    };
-    console.log(videos);
-    return videos;
+          ]
+        },
+      }
 
-    /* return await fetch(
-      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=1&videoId=Z9eqBrp_uR0&key=${config.YOUTUBE_API_KEY}`
-    ).then(response => response.json()); // If this line is not written, we cannot get correct data.
-      // .then(json => json.data)
-      // .catch(err => console.log(err)); */
+      return videos;
+    });
+
+    return videos; // Must-use to return the result of _callApi() in _getVideos()
   };
 
   _renderVideos = () => {
-    const items = this.state.videos.items;
+    const items = this.state.videos[0].items;
+    console.log(items); // Success
+
     return (
       <>
         {items.map((item) => ( // ForEach vs. map ?
