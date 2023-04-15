@@ -26,6 +26,9 @@ class Comment extends Component {
             <>
                 <div style={style} onMouseOver={this.handleMouseOver} onMouseLeave={this.handleMouseLeave}>
                     <div>
+                        Video ID: {this.props.videoId}
+                    </div>                    
+                    <div>
                         Date: {this.props.date}
                     </div>
                     <div>

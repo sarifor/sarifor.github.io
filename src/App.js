@@ -91,6 +91,7 @@ class App extends Component {
     const videos = this.state.videos;
     const dateAndComments = videos.map((video) => (
       {
+        videoId: video.items[0].snippet.topLevelComment.snippet.videoId,
         date: video.items[0].snippet.topLevelComment.snippet.publishedAt,
         comment: video.items[0].snippet.topLevelComment.snippet.textDisplay,
       }
@@ -101,7 +102,8 @@ class App extends Component {
       <>
         {dateAndComments.map((dateAndComment) => ( // ForEach vs. map ?
           <Comment
-            color="#d3d3d3" 
+            color="#d3d3d3"
+            videoId={dateAndComment.videoId}
             date={dateAndComment.date}
             comment={dateAndComment.comment}
           />      
