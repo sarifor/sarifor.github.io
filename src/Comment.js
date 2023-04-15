@@ -32,7 +32,12 @@ class Comment extends Component {
                         Date: {this.props.date}
                     </div>
                     <div>
-                        Comment: {this.props.comment}
+                        Comment: {this.props.comment.split("<br>").map((comment) => (
+                            <>
+                                {comment}
+                                <br /> {/* <br> vs. <br /> ? */}
+                            </>
+                        ))}
                     </div>
                 </div>
                 <hr/>
