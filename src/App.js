@@ -89,7 +89,7 @@ class App extends Component {
   _renderVideos = () => {
     // Make array to include date and comment only
     const videos = this.state.videos;
-    const dateAndComments = videos.map((video) => (
+    const dateAndComments = videos.filter((video) => video.items[0].snippet.topLevelComment.snippet.authorDisplayName === "앵무새사남매-루몽다로").map((video) => (
       {
         videoId: video.items[0].snippet.topLevelComment.snippet.videoId,
         date: video.items[0].snippet.topLevelComment.snippet.publishedAt,
