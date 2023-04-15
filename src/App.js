@@ -87,16 +87,23 @@ class App extends Component {
   };
 
   _renderVideos = () => {
-    const items = this.state.videos[0].items;
-    console.log(items); // Success
+    // Make array to include date and comment only
+    const videos = this.state.videos;
+    const dateAndComments = videos.map((video) => (
+      {
+        date: video.items[0].snippet.topLevelComment.snippet.publishedAt,
+        comment: video.items[0].snippet.topLevelComment.snippet.textDisplay,
+      }
+    ));
 
+    // Return Comment components including dates and comments
     return (
       <>
-        {items.map((item) => ( // ForEach vs. map ?
+        {dateAndComments.map((dateAndComment) => ( // ForEach vs. map ?
           <Comment
             color="#d3d3d3" 
-            date={item.snippet.topLevelComment.snippet.publishedAt}
-            comment={item.snippet.topLevelComment.snippet.textDisplay}
+            date={dateAndComment.date}
+            comment={dateAndComment.comment}
           />      
         ))}  
       </>
