@@ -101,7 +101,7 @@ class App extends Component {
     // Return Comment components including dates and comments
     return (
       <>
-        <ScrollBox>
+        <ScrollBox ref={(ref) => this.scrollBox=ref}>
           {dateAndComments.map((dateAndComment) => ( // ForEach vs. map ?
             <Comment
               color="#d3d3d3"
@@ -115,11 +115,6 @@ class App extends Component {
     )
   };
   
-  scrollToTop = () => {
-    // const { scrollHeight, clientHeight } = this.box;
-    this.box.scrollTop = 0;
-  }
-
   render() {
     const { videos } = this.state;
 
@@ -127,7 +122,7 @@ class App extends Component {
       <div>
         <p>Video Info Collector</p>
         {videos ? this._renderVideos() : "Loading..."}
-        <button onClick={() => this.scrollToTop()}>
+        <button onClick={() => this.scrollBox.scrollToTop()}>
           Go to Top
         </button>
       </div>
