@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ScrollBox from './ScrollBox';
 import Comment from './Comment';
 import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
@@ -100,14 +101,16 @@ class App extends Component {
     // Return Comment components including dates and comments
     return (
       <>
-        {dateAndComments.map((dateAndComment) => ( // ForEach vs. map ?
-          <Comment
-            color="#d3d3d3"
-            videoId={dateAndComment.videoId}
-            date={dateAndComment.date}
-            comment={dateAndComment.comment}
-          />      
-        ))}  
+        <ScrollBox>
+          {dateAndComments.map((dateAndComment) => ( // ForEach vs. map ?
+            <Comment
+              color="#d3d3d3"
+              videoId={dateAndComment.videoId}
+              date={dateAndComment.date}
+              comment={dateAndComment.comment}
+            />      
+          ))}
+        </ScrollBox>
       </>
     )
   };
@@ -118,30 +121,12 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      border: '1px solid black',
-      height: '300px',
-      width: '300px',
-      overflow: 'auto',
-      position: 'relative'
-    }
-
-    const innerStyle = {
-      width: '100%',
-      height: '650px',
-      background: 'linear-gradient(white, black)'
-    }
-
     const { videos } = this.state;
 
     return (
       <div>
         <p>Video Info Collector</p>
-        <div style={style} ref={(ref) => {this.box=ref}}> {/* ScrollBox Component */}
-          <div style={innerStyle}>
-           {videos ? this._renderVideos() : "Loading..."}
-          </div>
-        </div>
+        {videos ? this._renderVideos() : "Loading..."}
         <button onClick={() => this.scrollToTop()}>
           Go to Top
         </button>
