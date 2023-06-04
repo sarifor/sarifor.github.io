@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ScrollBox from './ScrollBox';
 import Comment from './Comment';
-import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
+// import { config } from './apikeys.js'; // "Use apikeys.js later than App.js"
 
 class App extends Component {
   state = { // Do not write 'videos: [],' inside, or error occurs.
@@ -12,13 +12,48 @@ class App extends Component {
   }
 
   _getVideos = async () => { // Why aren't 'const' used?
-    const videos = await this._callApi();
+    // const videos = await this._callApi();
+
+    // Return test object 
+    const videos = [
+      {
+        "items": [
+          {
+            "snippet": {
+              "topLevelComment": {
+                "snippet": {
+                  "publishedAt": "2024/4/1",
+                  "textDisplay": "Visit Australia",
+                  "authorDisplayName": "앵무새사남매-루몽다로"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "snippet": {
+              "topLevelComment": {
+                "snippet": {
+                  "publishedAt": "2024/4/2",
+                  "textDisplay": "Wanna meet cockatoos!",
+                  "authorDisplayName": "앵무새사남매-루몽다로"
+                }
+              }
+            }
+          }
+        ]
+      },
+    ]
+    
     this.setState({
       videos
     });
   };
 
-  _callApi = async () => {
+  /*_callApi = async () => {
     // Fetch latest infomation of five videos from a YouTube channel
     const latestFiveVideos = await fetch(`
       https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCkIu9pkxvDcnBs4Tl4seMFw&maxResults=5&order=date&type=video&key=${config.YOUTUBE_API_KEY}`
@@ -85,7 +120,7 @@ class App extends Component {
     });
 
     return videos; // Must-use to return the result of _callApi() in _getVideos()
-  };
+  }; */
 
   _renderVideos = () => {
     // Make array to include date and comment only
