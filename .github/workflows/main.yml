@@ -1,0 +1,56 @@
+name: Automatically Deployment
+
+on: [push]
+
+jobs:
+  deployment:
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      issues: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write  
+  
+    runs-on: ubuntu-latest
+
+    name: Deploying to GitHub Pages
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Generate Environmet Variables File for Production
+        run: |
+          echo "REACT_APP_KEY=$REACT_APP_KEY" >> .env.production
+        env:
+          REACT_APP_KEY: ${{ secrets.TEST_SECRET }}
+ 
+      - name: Show Environment Variables for Production
+        run: echo ${{env.REACT_APP_KEY}}
+
+      - name: Install Dependencies
+        run: |
+          npm install
+      - name: Build React Application
+        run: npm run build
+       
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "/static/js/main"
+          replace: "static/js/main"
+          include: "build/index.html"
+
+      - name: Deploy React Application to GitHub pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
