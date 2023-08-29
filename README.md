@@ -32,8 +32,9 @@ https://sarifor.github.io/video-info-collector
 > 6. cd 커맨드로 저장소 폴더 안에 들어가서 npm install 실행하여, package.json에 기술되어 있는 패키지 설치
 > 7. npm run start로 프로젝트 실행
 > 8. http://localhost:3000에 접속하여, 아래와 같은 화면이 뜨면 성공!
->    - 백엔드에서 데이터를 가져오되, 에러 발생 시 Test Data를 띄우게 해 놓았습니다.
+>    - 백엔드에서 데이터를 가져오되, 에러 발생 시 Test Data가 띄워짐.
 >    - 백엔드 코드: [Video Info Collector Backend](https://github.com/sarifor/video-info-collector-backend)
+> 
 > ![image](./running_app.png)
 
 
